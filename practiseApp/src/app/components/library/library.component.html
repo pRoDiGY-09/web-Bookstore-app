@@ -1,0 +1,31 @@
+<div class="lib-header">RENT A BOOK</div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-4 mb-4" *ngFor="let book of data">
+            <div class="card">
+                <div class="card-image mt-3">
+                    <img src={{book.image}} alt="cover-image" height="200px" (click)="getBookDetails(book.id)" >
+                </div>
+                <div class="card-title">
+                    {{book.title}}
+                </div>
+                <div class="card-body">
+                    <p>{{book.author}}</p>
+                    <p>publisher: {{book.publisher  }}</p>
+                    <p>$ {{book.price}}</p>
+                    <div class=" addBtn mt-auto">
+                        <button type="button" class="btn btn-warning" (click)="getBookDetails(book.id)">
+                            View Details
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div style="text-align: center;">
+    <button type="button" class="btn btn-success" (click)="goToCart()"> Go To Cart</button>
+    <br>
+    <br>
+</div>

@@ -1,0 +1,28 @@
+<nav class="navbar navbar-expand-md topNav ">
+    <a class="navbar-brand">Library Inc.</a>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="navbar-nav">
+            <a class="nav-item nav-link" routerLink="/" routerLinkActive="active-link"
+                [routerLinkActiveOptions]="{ exact: true }">Home</a>
+            <a class="nav-item nav-link" routerLink="/lib" routerLinkActive="active-link">Library</a>
+            <a class="nav-item nav-link" routerLink="/cart" routerLinkActive="active-link">Cart</a>
+            <a *ngIf="acc.loggedin()" class="nav-item nav-link" routerLink="/admin" routerLinkActive="active-link">Admins</a>
+        </div>
+
+        <div class="navbar-nav ms-auto">
+            <a *ngIf="!acc.loggedin()" class="nav-item nav-link" routerLink="/login" routerLinkActive="active-link">Log In</a>
+            <a *ngIf="!acc.loggedin()" class="nav-item nav-link" routerLink="/register" routerLinkActive="active-link">Register</a>
+            <a  *ngIf="acc.loggedin()" class="nav-item nav-link" (click)="logoutClicked()" href="#">LogOut</a>
+            <a *ngIf="acc.loggedin()" class="nav-item nav-link" routerLink="/profile" routerLinkActive="active-link">Profile</a>
+        </div>
+
+    </div>
+</nav>
+
+<router-outlet></router-outlet>

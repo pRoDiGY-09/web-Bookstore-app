@@ -1,0 +1,19 @@
+<p>cart-page works!</p>
+<div class="container">
+    <div class="row">
+    <div class="col-md-4 mb-4" *ngFor="let prod of cartProd">
+        <img src={{prod.cover}} alt="cover image" height="300px">
+        <p>ID:{{prod.id}}</p>
+        <p>NAME:{{prod.name}}</p>
+        <p>PRICE: {{ (+prod.price * +prod.quantity) | number:'1.2-2' }}</p>
+        <div class="d-flex align-items-center">
+        <button class="btn btn-secondary btn-sm" (click)="decrease(prod)">-</button>
+        <span class="mx-2">{{prod.quantity}}</span>
+        <button class="btn btn-secondary btn-sm" (click)="Increase(prod)">+</button>
+    </div>
+    <br>
+        <button class="btn btn-primary" (click)="deleteBook(acc.loggedin()? prod._id : prod.id)">Remove</button>
+    </div>
+    </div>
+</div>
+

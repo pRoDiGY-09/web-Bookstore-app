@@ -1,0 +1,29 @@
+
+<div class="container mt-5">
+    <div class="row g-3">
+        <div class="col-md-2 cover">
+            <img src={{data.image}} alt="cover image" height="300px">
+        </div>
+
+        <div class="col-md-6 details">
+            <p>{{data.title}}</p>
+            <p>Author : {{data.author}} Publisher: {{data.publisher}}</p>
+            <p>total reviews: {{data.reviews}}</p>
+
+            <p>$ {{data.price}}</p>
+            <p>About the Book</p>
+            <p>{{data.description}}</p>
+            <p>Pages: {{data.pages}}</p>
+            <p>published: {{data.published}}</p>
+        </div>
+        <div class="col-md-4 addButton">
+            <div class=" addBtn ">
+                <button (click)="addToCart(data)" [disabled]="isAdded"
+                    [ngClass]="isAdded ? 'btn btn-success' : 'btn btn-warning'">
+                    {{ isAdded ? 'Added to cart' : 'Add to cart' }}
+                </button>
+            </div>
+        </div>
+       
+    </div>
+</div>
