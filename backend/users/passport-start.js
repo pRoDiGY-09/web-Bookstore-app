@@ -1,11 +1,11 @@
 const { Strategy: JwtStrategy, ExtractJwt } = require('passport-jwt');
-const User = require('../models/user');
-const secretKey = 'your_secret_key'; 
+const User = require('../models/user'); 
+require('dotenv').config();
 
 module.exports=function(passport){
     const opts = {};
     opts.jwtFromRequest= ExtractJwt.fromAuthHeaderAsBearerToken(),
-    opts.secretOrKey= secretKey
+    opts.secretOrKey= process.env.SECRET_KEY
     passport.use(new JwtStrategy(opts, async (jwt_payload, done) => {
         try {
             console.log("inside strategy")

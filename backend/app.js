@@ -5,12 +5,12 @@ const bookRoute=require('../backend/books/book');
 const cartRoute=require('../backend/cart/cart');
 const userRoute=require('../backend/users/user');
 const passport= require('passport');
-
+require('dotenv').config();
 
 
 
 port=3000;
-
+ 
 const app=express();
 app.use(cors());
 app.use(express.json());
@@ -24,9 +24,9 @@ app.use(passport.initialize());
 // app.use(passport.session());
 
 
-
-
-mongoose.connect('mongodb+srv://shubhamkumarreincarnate:fapjFnkWFCwuLjGT@backenddb.k1fqc.mongodb.net/?retryWrites=true&w=majority&appName=BackendDB')
+const url=process.env.MONGO_URL
+console.log(url)
+mongoose.connect(url)
 .catch((err)=>{
     console.log(err);
 })
