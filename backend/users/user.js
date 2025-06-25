@@ -4,8 +4,9 @@ const router = express.Router();
 const user = require('../models/user');
 const bcypt = require('bcryptjs');
 const passport = require('passport');
-const secretKey = 'your_secret_key';
+// const secretKey = 'your_secret_key';
 const jwt = require('jsonwebtoken');
+require('dotenv').config();
 
 
 router.post('/register', async (req, res) => {
@@ -44,10 +45,10 @@ router.post('/login', async (req, res) => {
             return res.json({ message: "password incorrect!" })
         } else {
             const payload = { id: userNew._id };
-            const token = jwt.sign(payload, secretKey, { expiresIn: '1h' });
+            const token = jwt.sign(payload, process.env.SECRET_KEY, { expiresIn: '1h' });
             res.json({
                 success: true,
-                token: 'Bearer ' + token,
+                token:  'Bearer ' + token,
                 user: {
                     id: userNew._id,
                     name: userNew.name,

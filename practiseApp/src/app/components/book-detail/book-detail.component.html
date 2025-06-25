@@ -1,29 +1,81 @@
-
 <div class="container mt-5">
     <div class="row g-3">
-        <div class="col-md-2 cover">
+        <div class="col-md-3 cover">
             <img src={{data.image}} alt="cover image" height="300px">
         </div>
 
         <div class="col-md-6 details">
-            <p>{{data.title}}</p>
-            <p>Author : {{data.author}} Publisher: {{data.publisher}}</p>
-            <p>total reviews: {{data.reviews}}</p>
+            <div>
+                <span> {{data.title}}</span>
+                <input *ngIf="editMode && acc.checkAdmin()" [(ngModel)]="editData.title" placeholder="new Title">
+            </div>
 
-            <p>$ {{data.price}}</p>
+            <div>
+                <span>Author : {{data.author}}</span>
+                <input *ngIf="editMode && acc.checkAdmin()" [(ngModel)]="editData.author" placeholder="Changed Author">
+            </div>
+            <div>
+                <span> Publisher {{data.publisher}}</span>
+                <input *ngIf="editMode && acc.checkAdmin()" [(ngModel)]="editData.publisher"
+                    placeholder="new Publisher">
+            </div>
+
+            <div>
+                <span>total reviews: {{data.reviews}}</span>
+                <input *ngIf="editMode && acc.checkAdmin()" [(ngModel)]="editData.reviews"
+                    placeholder="improved review count">
+            </div>
+
+            <div>
+                <span>$ {{data.price}}</span>
+                <input *ngIf="editMode && acc.checkAdmin()" [(ngModel)]="editData.price" placeholder="new price">
+            </div>
+
             <p>About the Book</p>
-            <p>{{data.description}}</p>
-            <p>Pages: {{data.pages}}</p>
-            <p>published: {{data.published}}</p>
+            <div>
+                <span>{{data.description}}</span>
+                <input *ngIf="editMode && acc.checkAdmin()" [(ngModel)]="editData.description"
+                    placeholder="new description">
+            </div>
+
+            <div>
+                <span>{{data.pages}}</span>
+                <input *ngIf="editMode && acc.checkAdmin()" [(ngModel)]="editData.pages" placeholder="pages count">
+            </div>
+
+            <div>
+                <span>{{data.published}}</span>
+                <input *ngIf="editMode && acc.checkAdmin()" [(ngModel)]="editData.published"
+                    placeholder="date published">
+            </div>
+
         </div>
-        <div class="col-md-4 addButton">
+        <div class="col-md-3 addButton">
             <div class=" addBtn ">
                 <button (click)="addToCart(data)" [disabled]="isAdded"
                     [ngClass]="isAdded ? 'btn btn-success' : 'btn btn-warning'">
                     {{ isAdded ? 'Added to cart' : 'Add to cart' }}
                 </button>
             </div>
+            <div *ngIf="acc.checkAdmin()" class="adminBtn">
+                <button *ngIf="!editMode" class="btn btn-primary" (click)="editMode=true">Edit</button>
+                <button *ngIf="editMode" class="btn btn-success" (click)="showModal=true">Save</button>
+                <button *ngIf="editMode" class="btn btn-danger" (click)="cancelEdit()">Cancel</button>
+            </div>
         </div>
-       
+
     </div>
 </div>
+
+<!-- confirmation modal -->
+ <div class="modal-backdrop" *ngIf="showModal">
+    <div class="modal-dialog" >
+        <h5>
+            Confirm Save
+        </h5>
+        <p>Are you sure you ant to save these changes? It cannot be reversed!</p>
+        <div class="modalBtn"><button class="btn btn-success save" (click)="confirmSave()">Save</button>
+        <button class="btn btn-danger cancel" (click)="showModal=false">Cancel</button></div>
+        
+    </div>
+ </div>

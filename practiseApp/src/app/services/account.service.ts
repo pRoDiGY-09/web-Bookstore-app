@@ -47,4 +47,11 @@ export class AccountService {
   const jwt = token.split(' ').pop() ?? null;
   return !this.helper.isTokenExpired(jwt);
 }
+checkAdmin():boolean{
+if (this.loggedin()){
+  const user=JSON.parse(localStorage.getItem('user')|| '{}');
+  return user.admin === true;
+}
+return false;
+}
 }

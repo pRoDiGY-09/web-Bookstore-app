@@ -17,15 +17,11 @@ export class LibraryComponent implements OnInit {
   constructor(
     private book: FetchBookService,
     private cart: CartService,
-    private acc: AccountService,
+    public acc: AccountService,
     private router: Router) { }
 
 
   ngOnInit(): void {
-    // const stored = sessionStorage.getItem('addedIDs');
-    // if (stored) {
-    //   this.addedIDs = new Set(JSON.parse(stored));
-    // }
     this.getAllBooks();
   }
 

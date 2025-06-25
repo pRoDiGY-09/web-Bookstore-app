@@ -18,4 +18,8 @@ export class FetchBookService {
   getBookDetails(bookID:number){
     return this.httpclent.get('http://localhost:3000/api/bookDetail',{params:{id:bookID}});
   }
+  
+  updatebook(bookdata:any){
+    return this.httpclent.put('http://localhost:3000/api/updateBook',bookdata);
+  }
 }

@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { books } from '../../models/book';
 import { AccountService } from '../../services/account.service';
 import { CartService } from '../../services/cart.service';
+import { NgModel } from '@angular/forms';
 @Component({
   selector: 'app-book-detail',
   standalone: false,
@@ -13,17 +14,20 @@ import { CartService } from '../../services/cart.service';
 export class BookDetailComponent {
   public data:any
   public addedIDs = new Set<Number>();
+  editMode=false;
+  editData:any={};
   isAdded = false;
+  showModal=false;
+
   constructor( 
     private route:ActivatedRoute,
     private fetch:FetchBookService,
-    private acc:AccountService,
+    public acc:AccountService,
     private cart: CartService
     ){}
 
   ngOnInit(){
     const id=this.route.snapshot.paramMap.get('id');
-    // const addedBooks = JSON.parse(localStorage.getItem('addedBooks') || '[]');
     this.getDetails(id);
     if (this.acc.loggedin()) {
     this.cart.getcart().subscribe({
@@ -81,5 +85,32 @@ export class BookDetailComponent {
       localStorage.setItem('addedBooks', JSON.stringify(books));
     }
 
+  }
+  editBook(){
+    this.editMode=true;
+    this.editData={_id:this.data._id}
+    console.log(...this.data)
+  }
+
+  saveEdit(){
+    const updateData= {...this.editData, _id:this.data._id}
+    this.fetch.updatebook(updateData).subscribe({
+      next:res=>{
+        this.editMode=false
+      },
+      error:err=>{
+        console.log("update failed",err)
+      }
+    })
+  }
+  cancelEdit(){
+    this.editMode=false
+    this.editData={_id:this.data._id}
+  }
+
+  confirmSave(){
+    this.showModal=false;
+    this.saveEdit();
+     window.location.reload();
   }
 }
