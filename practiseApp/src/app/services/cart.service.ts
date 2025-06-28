@@ -22,4 +22,7 @@ export class CartService {
   deleteCart(id:string): Observable<any>{
     return this.http.delete('http://localhost:3000/api/removeCart',{body:{_id:id}})
   }
+  clearCart(){
+    return this.http.delete('http://localhost:3000/api/clearCart');
+  }
 }

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FetchBookService } from '../../services/fetch-book.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { books } from '../../models/book';
 import { AccountService } from '../../services/account.service';
 import { CartService } from '../../services/cart.service';
@@ -23,7 +23,8 @@ export class BookDetailComponent {
     private route:ActivatedRoute,
     private fetch:FetchBookService,
     public acc:AccountService,
-    private cart: CartService
+    private cart: CartService,
+    private router:Router
     ){}
 
   ngOnInit(){
@@ -112,5 +113,8 @@ export class BookDetailComponent {
     this.showModal=false;
     this.saveEdit();
      window.location.reload();
+  }
+  goToCart(){
+    this.router.navigate(['/cart'])
   }
 }

@@ -58,3 +58,29 @@
             gap: 10px;
         }
     }
+
+    .valueField {
+    display: inline-block;
+    margin-left: 12px;
+    padding: 6px 10px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    min-width: 160px;
+    background: #fafbfc;
+    transition: border-color 0.2s;
+    margin-left: 5px;
+    margin-bottom: 3px;
+}
+
+.valueField:focus {
+    border-color: #007bff;
+    outline: none;
+    background: #fff;
+}
+span{
+    font-size: 1.08rem;
+}
+p{
+    font-size: 1.08rem;
+}

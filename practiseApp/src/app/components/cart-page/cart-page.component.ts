@@ -3,6 +3,7 @@ import { CartService } from '../../services/cart.service';
 import { cart } from '../../models/cart';
 import { AccountService } from '../../services/account.service';
 import { firstValueFrom } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-cart-page',
@@ -12,11 +13,13 @@ import { firstValueFrom } from 'rxjs';
 })
 export class CartPageComponent implements OnInit {
   public cartProd: cart[] = [];
+  orderSuccess: boolean=false;
   prod: any
   prodArray = []
   constructor(
     private cartServ: CartService,
-    public acc: AccountService
+    public acc: AccountService,
+    private router:Router
   ) { }
 
   ngOnInit(): void {
@@ -62,13 +65,10 @@ export class CartPageComponent implements OnInit {
   decrease(item: cart) {
     if (Number(item.quantity) > 1) {
       item.quantity = Number(item.quantity) - 1;
-      // item.price = Number(item.quantity) * Number(item.price);
     }
     const newItem = {
       _id: item._id,
       quantity: item.quantity,
-      // price: item.price
-
     }
     this.cartServ.updateCart(newItem).subscribe({
       next: res => {
@@ -99,6 +99,9 @@ export class CartPageComponent implements OnInit {
       }
     })
   }
+  get totalPrice(): number {
+  return this.cartProd.reduce((sum, prod) => sum + (+prod.price * +prod.quantity), 0);
+}
   getCartFromLocal() {
     this.prod = localStorage.getItem('addedBooks')
     this.cartProd = JSON.parse(localStorage.getItem('addedBooks') || '[]');
@@ -108,6 +111,7 @@ export class CartPageComponent implements OnInit {
     if (this.acc.loggedin()){
       this.cartServ.deleteCart(bookId).subscribe({
         next:res=>{
+           this.cartProd = this.cartProd.filter(prod => (this.acc.loggedin() ? prod._id : prod.id) !== bookId);
           console.log("removed",res)
           this.getCartProducts();
         },error:err=>{
@@ -121,5 +125,19 @@ export class CartPageComponent implements OnInit {
       localStorage.setItem('addedBooks', JSON.stringify(addedBooks));
       this.getCartFromLocal();
     }
+  }
+  goHome(){
+    this.router.navigate(['/'])
+    this.cartProd=[]
+
+    if (!this.acc.loggedin()) {
+    localStorage.removeItem('addedBooks');
+  }else{
+    this.cartServ.clearCart().subscribe()
+  }
+  }
+  placeOrder(){
+    this.orderSuccess=true;
+   
   }
 }

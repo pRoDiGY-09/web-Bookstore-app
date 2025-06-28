@@ -30,6 +30,13 @@ export class LibraryComponent implements OnInit {
       next: (res) => {
         console.log(res);
         this.data = res.data;
+        setTimeout(()=>{
+          const scroll=localStorage.getItem('libraryScroll');
+          if(scroll){
+            window.scrollTo({top:+scroll,left: 0, behavior:'auto'});
+            localStorage.removeItem('libraryScroll');
+          }
+        },100);
       },
       error: (err) => {
         console.log(err)
@@ -42,6 +49,7 @@ export class LibraryComponent implements OnInit {
   }
 
   getBookDetails(id:number){
+    localStorage.setItem('libraryScroll',window.scrollY.toString());
     this.router.navigate(['/bookDetail',id]);
   }
 }

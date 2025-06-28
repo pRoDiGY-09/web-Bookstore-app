@@ -7,48 +7,48 @@
         <div class="col-md-6 details">
             <div>
                 <span> {{data.title}}</span>
-                <input *ngIf="editMode && acc.checkAdmin()" [(ngModel)]="editData.title" placeholder="new Title">
+                <input class="valueField" *ngIf="editMode && acc.checkAdmin()" [(ngModel)]="editData.title" placeholder="new Title">
             </div>
 
             <div>
                 <span>Author : {{data.author}}</span>
-                <input *ngIf="editMode && acc.checkAdmin()" [(ngModel)]="editData.author" placeholder="Changed Author">
+                <input class="valueField"  *ngIf="editMode && acc.checkAdmin()" [(ngModel)]="editData.author" placeholder="Changed Author">
             </div>
             <div>
                 <span> Publisher {{data.publisher}}</span>
-                <input *ngIf="editMode && acc.checkAdmin()" [(ngModel)]="editData.publisher"
+                <input class="valueField"  *ngIf="editMode && acc.checkAdmin()" [(ngModel)]="editData.publisher"
                     placeholder="new Publisher">
             </div>
 
             <div>
-                <span>total reviews: {{data.reviews}}</span>
-                <input *ngIf="editMode && acc.checkAdmin()" [(ngModel)]="editData.reviews"
+                <span >total reviews: {{data.reviews}}</span>
+                <input class="valueField"  *ngIf="editMode && acc.checkAdmin()" [(ngModel)]="editData.reviews"
                     placeholder="improved review count">
             </div>
 
             <div>
                 <span>$ {{data.price}}</span>
-                <input *ngIf="editMode && acc.checkAdmin()" [(ngModel)]="editData.price" placeholder="new price">
+                <input class="valueField"  *ngIf="editMode && acc.checkAdmin()" [(ngModel)]="editData.price" placeholder="new price">
             </div>
 
-            <p>About the Book</p>
+            
             <div>
+                <p>About the Book</p>
                 <span>{{data.description}}</span>
-                <input *ngIf="editMode && acc.checkAdmin()" [(ngModel)]="editData.description"
-                    placeholder="new description">
             </div>
-
+            <textarea class="valueField" rows="5" cols="50" *ngIf="editMode && acc.checkAdmin()" [(ngModel)]="editData.description"
+                    placeholder="new description"></textarea>
             <div>
                 <span>{{data.pages}}</span>
-                <input *ngIf="editMode && acc.checkAdmin()" [(ngModel)]="editData.pages" placeholder="pages count">
+                <input class="valueField"  *ngIf="editMode && acc.checkAdmin()" [(ngModel)]="editData.pages" placeholder="pages count">
             </div>
 
             <div>
                 <span>{{data.published}}</span>
-                <input *ngIf="editMode && acc.checkAdmin()" [(ngModel)]="editData.published"
+                <input class="valueField"  *ngIf="editMode && acc.checkAdmin()" [(ngModel)]="editData.published"
                     placeholder="date published">
             </div>
-
+ 
         </div>
         <div class="col-md-3 addButton">
             <div class=" addBtn ">
@@ -56,6 +56,8 @@
                     [ngClass]="isAdded ? 'btn btn-success' : 'btn btn-warning'">
                     {{ isAdded ? 'Added to cart' : 'Add to cart' }}
                 </button>
+                <br>
+                <button *ngIf="isAdded" style="margin-top: 10px;" class="btn btn-warning" (click)="goToCart()">Go to cart</button>
             </div>
             <div *ngIf="acc.checkAdmin()" class="adminBtn">
                 <button *ngIf="!editMode" class="btn btn-primary" (click)="editMode=true">Edit</button>

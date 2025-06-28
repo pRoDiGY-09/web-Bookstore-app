@@ -1,5 +1,9 @@
-<p>cart-page works!</p>
-<div class="container">
+
+<div *ngIf="!orderSuccess">
+<div *ngIf="cartProd!.length===0" class="empty">
+    CART iS EMPTY!
+</div>
+<div *ngIf="cartProd!.length > 0" class="container">
     <div class="row">
     <div class="col-md-4 mb-4" *ngFor="let prod of cartProd">
         <img src={{prod.cover}} alt="cover image" height="300px">
@@ -14,6 +18,28 @@
     <br>
         <button class="btn btn-primary" (click)="deleteBook(acc.loggedin()? prod._id : prod.id)">Remove</button>
     </div>
+    <div class="buy"><button class="btn btn-success " (click)="placeOrder()">Buy Now</button></div>
+    
     </div>
 </div>
+</div>
 
+<!-- Cart Section (Show when orderSuccess is true) -->
+<div *ngIf="orderSuccess" class="order-success">
+    <div class="container ">
+    
+    <h2 class="mt-3">Order Successful!</h2>
+    <p>Your order has been placed. Here are your order details:</p>
+    <div class="order-details ">
+        <div class="mb-2" *ngFor="let prod of cartProd">
+            <img [src]="prod.cover" alt="cover image" height="80px" style="margin-right:10px;">
+            <span><strong>{{prod.name}}</strong> (x{{prod.quantity}}) - ${{ (+prod.price * +prod.quantity) | number:'1.2-2' }}</span>
+        </div>
+    </div>
+   <p style="margin-top:1rem;">
+  <strong>Total: ${{ totalPrice | number:'1.2-2' }}</strong>
+</p>
+    <button class="btn btn-success" (click)="goHome()">Back to Home</button>
+</div>
+    
+    </div>

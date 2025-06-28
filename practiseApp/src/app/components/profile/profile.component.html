@@ -1,7 +1,5 @@
-<div *ngIf="user">
+<div class="profile-container" *ngIf="user">
     <p>USER NAME: {{user.name}}</p>
-    <br>
     <p>email: {{user.email}}</p>
+    <button class="btn btn-success" (click)="backToHome()">Home</button>
 </div>
-
-<button class="btn btn-success" (click)="backToHome()">Home</button>
