@@ -20,7 +20,6 @@ export class ProfileComponent {
     this.acc.getProfile().subscribe({
       next:(res:any)=>{
         this.user=res.user
-        console.log(res.user)
       }
     })
   }

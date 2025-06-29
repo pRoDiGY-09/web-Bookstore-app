@@ -10,6 +10,8 @@ import { Router } from '@angular/router';
   styleUrl: './login.component.scss'
 })
 export class LoginComponent {
+
+  public LoginMsg='';
  LoginForm:FormGroup
   token:any;
   user:any;
@@ -45,9 +47,13 @@ export class LoginComponent {
    }
    this.account.LoginUser(user).subscribe({
     next:(res:any)=>{
-      console.log("logged in",res)
-      this.account.StoreData(res.token,res.user)
-      this.router.navigate(['/profile']);
+      if (res.success) {
+        this.LoginMsg = '';
+        this.account.StoreData(res.token, res.user);
+        this.router.navigate(['/profile']);
+      } else {
+        this.LoginMsg = res.message; 
+      }
     },
     error:(err)=>{
       console.log("error",err)

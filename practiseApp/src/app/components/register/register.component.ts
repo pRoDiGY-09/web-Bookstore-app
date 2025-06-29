@@ -11,7 +11,7 @@ import { User } from '../../models/user';
   styleUrl: './register.component.scss'
 })
 export class RegisterComponent {
-
+  public registerMessage='';
   public user:User[]=[];
   RegisterForm:FormGroup;
 
@@ -51,13 +51,19 @@ export class RegisterComponent {
     password
   };
   this.account.RegisterUser(newUser).subscribe({
-    next:(res)=>{
-      console.log("user registered!",res)
+    next:(res:any)=>{
+      this.registerMessage=res.message;
+      if (res.message=== 'user registered!'){
+        setTimeout(()=>{
+          this.router.navigate(['/login']),1500;
+        })
+      }
     },
     error:(err)=>{
-      console.log("not registerd",err)
+      this.registerMessage="Registration Failed"
+      console.log(err);
     }
   })
-    this.router.navigate(['/login'])
+    
   }
 }

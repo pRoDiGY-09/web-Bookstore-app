@@ -18,14 +18,13 @@ app.use('/api',bookRoute)
 app.use('/api',cartRoute)
 app.use('/api',userRoute)
 
-// initialize(passport);
+
 require('./users/passport-start')(passport);
 app.use(passport.initialize());
-// app.use(passport.session());
+
 
 
 const url=process.env.MONGO_URL
-console.log(url)
 mongoose.connect(url)
 .catch((err)=>{
     console.log(err);

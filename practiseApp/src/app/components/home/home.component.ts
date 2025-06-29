@@ -25,7 +25,6 @@ export class HomeComponent {
   getAllBooks() {
     this.book.getBooks().subscribe({
       next: (res) => {
-        console.log(res);
         this.data = res.data;
       },
       error: (err) => {

@@ -51,7 +51,6 @@ export class BookDetailComponent {
       next: (res: any) => {
         
         this.data = res.book;
-        console.log(this.data);
       },
       error: (err) => {
         console.log(err);
@@ -72,7 +71,6 @@ export class BookDetailComponent {
           this.isAdded=true;
           this.addedIDs.add(data.id);
           sessionStorage.setItem('addedIDs', JSON.stringify(Array.from(this.addedIDs)));
-          console.log("added to cart", res)
         },
         error: (err) => {
           console.log("not added", err)
@@ -90,7 +88,6 @@ export class BookDetailComponent {
   editBook(){
     this.editMode=true;
     this.editData={_id:this.data._id}
-    console.log(...this.data)
   }
 
   saveEdit(){

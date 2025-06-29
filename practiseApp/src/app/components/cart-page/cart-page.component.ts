@@ -72,7 +72,7 @@ export class CartPageComponent implements OnInit {
     }
     this.cartServ.updateCart(newItem).subscribe({
       next: res => {
-        console.log(res);
+        
       },
       error: err => {
         console.log(err)
@@ -107,12 +107,10 @@ export class CartPageComponent implements OnInit {
     this.cartProd = JSON.parse(localStorage.getItem('addedBooks') || '[]');
   }
   deleteBook(bookId:any){
-    console.log(bookId)
     if (this.acc.loggedin()){
       this.cartServ.deleteCart(bookId).subscribe({
         next:res=>{
            this.cartProd = this.cartProd.filter(prod => (this.acc.loggedin() ? prod._id : prod.id) !== bookId);
-          console.log("removed",res)
           this.getCartProducts();
         },error:err=>{
           console.log("error",err)

@@ -28,7 +28,6 @@ export class LibraryComponent implements OnInit {
   getAllBooks() {
     this.book.getBooks().subscribe({
       next: (res) => {
-        console.log(res);
         this.data = res.data;
         setTimeout(()=>{
           const scroll=localStorage.getItem('libraryScroll');
