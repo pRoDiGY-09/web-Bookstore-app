@@ -2,12 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { books } from '../models/book';
 import { Observable } from 'rxjs';
+import { environment } from '../../enviornments/enviornment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FetchBookService {
-  private api='http://localhost:3000/api/books'
+  private api=`${environment.apiBaseUrl}/books`;
 
   constructor(private httpclent:HttpClient) { }
 
@@ -16,10 +17,10 @@ export class FetchBookService {
   }
 
   getBookDetails(bookID:number){
-    return this.httpclent.get('http://localhost:3000/api/bookDetail',{params:{id:bookID}});
+    return this.httpclent.get(`${environment.apiBaseUrl}/bookDetail`,{params:{id:bookID}});
   }
   
   updatebook(bookdata:any){
-    return this.httpclent.put('http://localhost:3000/api/updateBook',bookdata);
+    return this.httpclent.put(`${environment.apiBaseUrl}/updateBook`,bookdata);
   }
 }

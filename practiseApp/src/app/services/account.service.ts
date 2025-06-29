@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { environment } from '../../enviornments/enviornment';
 
 @Injectable({
   providedIn: 'root'
@@ -13,11 +14,11 @@ export class AccountService {
   helper = new JwtHelperService();
   
   RegisterUser(user:{name:String,email:String,password:String}){
-    return this.http.post('http://localhost:3000/api/register',user)
+    return this.http.post(`${environment.apiBaseUrl}/register`,user)
   }
 
   LoginUser(user:{email:String,password:String}){
-    return this.http.post('http://localhost:3000/api/login',user)
+    return this.http.post(`${environment.apiBaseUrl}/login`,user)
   }
 
    StoreData(token:any, user:any){
@@ -30,7 +31,7 @@ export class AccountService {
   getProfile(){
     this.authToken=localStorage.getItem('id_token');
     const headers=new HttpHeaders({Authorization: this.authToken? this.authToken: ''});
-    return this.http.get('http://localhost:3000/api/profile',{headers})
+    return this.http.get(`${environment.apiBaseUrl}/profile`,{headers})
   }
 
   logout(){

@@ -9,7 +9,7 @@ require('dotenv').config();
 
 
 
-port=3000;
+port=process.env.PORT || 3000;
  
 const app=express();
 app.use(cors());

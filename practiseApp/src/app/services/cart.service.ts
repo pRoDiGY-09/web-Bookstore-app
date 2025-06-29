@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, retry } from 'rxjs';
+import { environment } from '../../enviornments/enviornment';
 
 @Injectable({
   providedIn: 'root'
@@ -9,20 +10,20 @@ export class CartService {
   constructor(private http:HttpClient) { }
 
   addToCart(product:{id:Number,name:String,cover:String,price:Number,quantity:Number}):Observable<any>{
-    return this.http.post('http://localhost:3000/api/addCart', product)
+    return this.http.post(`${environment.apiBaseUrl}/addCart`, product)
   }
 
   getcart():Observable<any>{
-    return this.http.get('http://localhost:3000/api/cart');
+    return this.http.get(`${environment.apiBaseUrl}/cart`);
   }
 
   updateCart(product1:{_id:String,quantity:Number}):Observable<any>{
-    return this.http.put('http://localhost:3000/api/cartUpdate',product1);
+    return this.http.put(`${environment.apiBaseUrl}/cartUpdate`,product1);
   }
   deleteCart(id:string): Observable<any>{
-    return this.http.delete('http://localhost:3000/api/removeCart',{body:{_id:id}})
+    return this.http.delete(`${environment.apiBaseUrl}/removeCart`,{body:{_id:id}})
   }
   clearCart(){
-    return this.http.delete('http://localhost:3000/api/clearCart');
+    return this.http.delete(`${environment.apiBaseUrl}/clearCart`);
   }
 }
